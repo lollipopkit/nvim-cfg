@@ -1,11 +1,11 @@
 return {
     -- 主题
     {
-        "folke/tokyonight.nvim",
+        "olimorris/onedarkpro.nvim",
         priority = 1000,
         lazy     = false,
         config   = function()
-            vim.cmd("colorscheme tokyonight-night")
+            vim.cmd("colorscheme onedark_dark")
         end,
     },
 

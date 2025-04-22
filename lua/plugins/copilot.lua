@@ -1,11 +1,10 @@
 return {
     {
         "zbirenbaum/copilot.lua",
-        event = "InsertEnter", -- 进入插入模式时加载
         opts = {
             suggestion = {
-                enabled = true, -- 启用行内建议
-                auto_trigger = true, -- 自动触发
+                enabled = true,       -- 启用行内建议
+                auto_trigger = true,  -- 自动触发
                 keymap = {
                     accept = "<Tab>", -- 接受建议键位
                     next = "<C-]>",
