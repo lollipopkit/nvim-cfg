@@ -15,6 +15,7 @@ return {
       local cmp      = require("cmp")
       local luasnip  = require("luasnip")
       local autopair = require("nvim-autopairs.completion.cmp")
+      local suggestion = require("copilot.suggestion")
 
       require("luasnip.loaders.from_vscode").lazy_load()
       cmp.event:on("confirm_done", autopair.on_confirm_done())
@@ -29,8 +30,16 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"]   = cmp.mapping.abort(),
           ["<CR>"]    = cmp.mapping.confirm({ select = true }),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if suggestion.is_visible() then
+              suggestion.accept()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
+          { name = "copilot" },
           { name = "nvim_lsp" },
           { name = "luasnip"  },
         }, {
