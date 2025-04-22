@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/configs/keymaps.lua
 local map  = vim.keymap.set
 local opts = { silent = true }
 

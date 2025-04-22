@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/configs/options.lua
 local o, g = vim.o, vim.g
 
 o.number            = true

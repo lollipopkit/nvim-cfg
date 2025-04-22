@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/plugins/copilot.lua
 return {
     {
         "zbirenbaum/copilot.lua",

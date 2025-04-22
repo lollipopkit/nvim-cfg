@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/plugins/core.lua
 return {
     -- 主题
     {

@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/plugins/auto-session.lua
 return { {
     "rmagatti/auto-session",
     event = "VimEnter",
