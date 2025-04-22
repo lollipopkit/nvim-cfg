@@ -5,7 +5,7 @@ return { {
     event = "VimEnter",
     opts = {
         view = {
-            width = 41
+            width = 37
         },
         filters = {
             dotfiles = false
@@ -22,7 +22,13 @@ return { {
         respect_buf_cwd = true,
         renderer = {
             group_empty = true
-        }
+        },
+        -- 关闭对 .gitignore 中声明文件的隐藏
+        git = {
+            enable  = true, -- 保持开启 Git 状态显示
+            ignore  = false, -- 不隐藏 Git 忽略的文件
+            timeout = 500, -- 可选：Git 状态查询超时
+        },
     },
     config = function(_, opts)
         require("nvim-tree").setup(opts)
