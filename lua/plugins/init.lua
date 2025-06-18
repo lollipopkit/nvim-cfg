@@ -20,8 +20,29 @@ return {
     -- Telescope
     {
         "nvim-telescope/telescope.nvim",
-        cmd          = "Telescope",
+        cmd = "Telescope",
         dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("telescope").setup({
+                defaults = {
+                    prompt_prefix = " ",
+                    selection_caret = " ",
+                    path_display = { "truncate" },
+                    file_ignore_patterns = { "node_modules", ".git/", "target/", "build/", ".dart_tool/" },
+                    layout_config = {
+                        horizontal = { preview_width = 0.6 },
+                    },
+                },
+                pickers = {
+                    find_files = {
+                        hidden = true, -- 显示隐藏文件
+                    },
+                    live_grep = {
+                        additional_args = function() return { "--hidden" } end,
+                    },
+                },
+            })
+        end,
     },
 
     -- Git 行内标记

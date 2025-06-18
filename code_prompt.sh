@@ -1,0 +1,1 @@
+code_prompt --show-matched -i '*.lua'

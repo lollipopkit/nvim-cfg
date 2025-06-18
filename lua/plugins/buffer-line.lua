@@ -5,6 +5,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- 图标依赖
     opts = {
         options = {
+            always_show_bufferline = true,
             numbers                 = "ordinal", -- buffer 前显示序号
             indicator               = { icon = "▎", style = "icon" },
             -- buffer_close_icon       = "",
@@ -16,7 +17,7 @@ return {
             tab_size                = 20,
             show_buffer_close_icons = true,
             show_buffer_icons       = true,
-            show_close_icon         = false,
+            show_close_icon         = true, -- 显示关闭图标
             diagnostics             = "nvim_lsp",
             diagnostics_indicator   = function(count, level, _)
                 return "(" .. count .. ")"
@@ -24,8 +25,8 @@ return {
             offsets                 = {
                 {
                     filetype   = "NvimTree",
-                    text       = "File Explorer",
-                    text_align = "center",
+                    text       = "Files",
+                    text_align = "left",
                     separator  = true,
                 },
             },
