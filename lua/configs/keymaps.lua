@@ -33,6 +33,13 @@ map("n", "<Leader>bd", "<Cmd>bdelete<CR>", opts) -- 删除缓冲区
 map("n", "<Tab>", "<Cmd>bnext<CR>", opts)        -- 下一个缓冲区
 map("n", "<S-Tab>", "<Cmd>bprevious<CR>", opts)  -- 上一个缓冲区
 
+-- 数字快速切换缓冲区
+for i = 1, 9 do
+  map("n", "<Leader>" .. i, function()
+    require('bufferline').go_to_buffer(i, true)
+  end, { desc = "跳转到缓冲区 " .. i, silent = true })
+end
+
 -- Telescope
 map("n", "<Leader>ff", "<Cmd>Telescope find_files<CR>", opts)
 map("n", "<Leader>fg", "<Cmd>Telescope live_grep<CR>", opts)

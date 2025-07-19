@@ -4,8 +4,18 @@ return {
         "folke/flash.nvim",
         event = "VeryLazy",
         opts = {
+            labels = "asdfghjklqwertyuiop",
+            search = {
+                multi_window = true,
+                forward = true,
+                wrap = true,
+            },
             modes = {
-                char = { enabled = false }, -- 禁用 f/F/t/T 模式
+                char = { 
+                    enabled = false, -- 禁用 f/F/t/T 模式
+                    jump_labels = true,
+                    multi_line = true,
+                },
             },
         },
         keys = {
