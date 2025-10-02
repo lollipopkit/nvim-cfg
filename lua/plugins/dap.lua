@@ -5,11 +5,12 @@ return {
       {
         "williamboman/mason.nvim",
         opts = {
-          ensure_installed = {
-            "python-debugpy", -- Python
-            "js-debug-adapter", -- JavaScript/TypeScript
-            "codelldb", -- C, C++, Rust
-          },
+            ensure_installed = {
+                "python-debugpy", -- Python
+                "js-debug-adapter", -- JavaScript/TypeScript
+                "codelldb", -- C, C++, Rust
+                "delve", -- Go
+            },
         },
       },
       -- DAP UI 插件
@@ -137,6 +138,31 @@ return {
       dap.configurations.cpp = cpp_c_rust_config
       dap.configurations.c = cpp_c_rust_config
       dap.configurations.rust = cpp_c_rust_config
+
+      -- Go (使用 delve - 通过 Mason 安装: "delve")
+      dap.adapters.go = {
+        type = "server",
+        host = "127.0.0.1",
+        port = "${port}",
+        executable = {
+          command = vim.fn.stdpath("data") .. "/mason/bin/dlv",
+          args = { "dap", "-l", "127.0.0.1:${port}" },
+        },
+      }
+      dap.configurations.go = {
+        {
+          name = "Debug file",
+          type = "go",
+          request = "launch",
+          program = "${file}",
+        },
+        {
+          name = "Debug package",
+          type = "go",
+          request = "launch",
+          program = "${fileDirname}",
+        },
+      }
 
 
     end,
