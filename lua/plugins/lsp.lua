@@ -1,8 +1,8 @@
-return {{
+return { {
     "neovim/nvim-lspconfig",
-    event = {"BufReadPre", "BufNewFile"},
-    dependencies = {"williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim", "folke/neodev.nvim",
-                    "hrsh7th/cmp-nvim-lsp"},
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim", "folke/neodev.nvim",
+        "hrsh7th/cmp-nvim-lsp" },
     config = function()
         require("neodev").setup({})
 
@@ -12,7 +12,7 @@ return {{
             }
         })
         require("mason-lspconfig").setup({
-            ensure_installed = {"gopls", "rust_analyzer", "ts_ls", "bashls", "dockerls", "lua_ls", "marksman"},
+            ensure_installed = { "gopls", "rust_analyzer", "ts_ls", "bashls", "dockerls", "lua_ls", "marksman" },
             automatic_installation = true
         })
 
@@ -68,9 +68,7 @@ return {{
             rust_analyzer = {
                 settings = {
                     ["rust-analyzer"] = {
-                        checkOnSave = {
-                            command = "cargo clippy",
-                        },
+                        checkOnSave = true,
                         cargo = {
                             loadOutDirsFromCheck = true,
                         },
@@ -100,7 +98,7 @@ return {{
                             enable = false
                         },
                         diagnostics = {
-                            globals = {"vim"}
+                            globals = { "vim" }
                         }
                     }
                 }
@@ -121,4 +119,4 @@ return {{
             lspconfig[name].setup(cfg)
         end
     end
-}}
+} }
