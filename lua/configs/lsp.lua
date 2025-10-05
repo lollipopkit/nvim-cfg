@@ -29,10 +29,12 @@ function M.on_attach(client, bufnr)
     map("n", "<Leader>d", vim.diagnostic.open_float, "显示诊断")
     map("n", "<Leader>dl", vim.diagnostic.setloclist, "诊断列表")
 
-    if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-        local ok = pcall(vim.lsp.inlay_hint.enable, bufnr, true)
-        if not ok and vim.lsp.inlay_hint then
-            vim.lsp.inlay_hint(bufnr, true)
+    if client.server_capabilities.inlayHintProvider then
+        local inlay_hint = vim.lsp.inlay_hint
+        if inlay_hint and type(inlay_hint.enable) == "function" then
+            pcall(inlay_hint.enable, bufnr, true)
+        elseif vim.lsp.buf and type(vim.lsp.buf.inlay_hint) == "function" then
+            pcall(vim.lsp.buf.inlay_hint, bufnr, true)
         end
     end
 end

@@ -20,7 +20,7 @@ return { {
                 "dockerls",
                 "lua_ls",
                 "marksman",
-                "dartls",
+                --"dartls",
             },
             automatic_installation = true,
         })
