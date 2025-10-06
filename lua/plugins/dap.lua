@@ -3,24 +3,32 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
       {
+        "nvim-neotest/nvim-nio",
+        module = "nio",
+      },
+      {
         "williamboman/mason.nvim",
         opts = {
-            ensure_installed = {
-                "python-debugpy", -- Python
-                "js-debug-adapter", -- JavaScript/TypeScript
-                "codelldb", -- C, C++, Rust
-                "delve", -- Go
-            },
+          ensure_installed = {
+            "python-debugpy", -- Python
+            "js-debug-adapter", -- JavaScript/TypeScript
+            "codelldb", -- C, C++, Rust
+            "delve", -- Go
+          },
         },
       },
       -- DAP UI 插件
-      { "rcarriga/nvim-dap-ui", name = "dapui", config = true },
+      {
+        "rcarriga/nvim-dap-ui",
+        name = "dapui",
+        opts = {},
+      },
       -- 可选：虚拟文本显示调试信息
       -- { "theHamsta/nvim-dap-virtual-text", config = true },
     },
     keys = {
       { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "添加/删除断点" },
-      { "<leader>dus", function() require("dapui").setup() end, desc = "设置 DAP UI" },
+      { "<leader>dus", function() require("dapui").open() end, desc = "打开 DAP UI" },
       { "<leader>duc", function() require("dapui").close() end, desc = "关闭 DAP UI" },
       { "<leader>dut", function() require("dapui").toggle() end, desc = "切换 DAP UI" },
       { "<leader>dc", function() require("dap").continue() end, desc = "继续" },

@@ -1,6 +1,8 @@
 return {
     {
         "zbirenbaum/copilot.lua",
+        event = "InsertEnter",
+        cmd = "Copilot",
         opts = {
             suggestion = {
                 enabled = true,       -- 启用行内建议
@@ -24,19 +26,22 @@ return {
                 },
             },
         },
-        config = function(opts)
+        config = function(_, opts)
             require("copilot").setup(opts)
         end,
     },
     -- nvim-cmp 加上这段来把 Copilot 建议接入到补全列表
     {
         "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
+        dependencies = { "zbirenbaum/copilot.lua" },
         opts = {
             method = "getCompletionsCycling",
         },
         config = function(_, opts)
-            require("copilot_cmp").setup(opts)
+            local ok, copilot_cmp = pcall(require, "copilot_cmp")
+            if ok then
+                copilot_cmp.setup(opts)
+            end
         end,
     },
 }

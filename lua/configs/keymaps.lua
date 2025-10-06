@@ -9,6 +9,7 @@ vim.g.maplocalleader = "\\"
 -- 基础操作
 map("n", "<Leader>w", "<Cmd>w<CR>", opts)
 map("n", "<Leader>q", "<Cmd>q<CR>", opts)
+map("n", "<Leader>qq", "<Cmd>qa!<CR>", opts)
 map("n", "<Leader>x", "<Cmd>x<CR>", opts) -- 保存并退出
 
 -- 快速编辑

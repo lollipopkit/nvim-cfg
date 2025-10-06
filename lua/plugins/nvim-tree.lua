@@ -1,8 +1,57 @@
 return { {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    -- 想要打开 nvim 自动加载文件树，就用 VimEnter 触发
-    event = "VimEnter",
+    cmd = {
+        "NvimTreeToggle",
+        "NvimTreeFocus",
+        "NvimTreeOpen",
+        "NvimTreeFindFile",
+        "NvimTreeFindFileToggle",
+    },
+    init = function()
+        local function buf_opt(buf, key)
+            if not buf or buf == 0 or not vim.api.nvim_buf_is_valid(buf) then
+                return ""
+            end
+            local ok, value = pcall(function()
+                return vim.bo[buf][key]
+            end)
+            return ok and value or ""
+        end
+
+        local function should_open(data)
+            local directory = data.file ~= "" and vim.fn.isdirectory(data.file) == 1
+            local buftype = buf_opt(data.buf, "buftype")
+            local filetype = buf_opt(data.buf, "filetype")
+            local no_name = data.file == "" and buftype == ""
+            local ignored = filetype == "gitcommit"
+            if ignored then
+                return false
+            end
+            return directory or no_name
+        end
+
+        vim.api.nvim_create_autocmd("VimEnter", {
+            callback = function(data)
+                if not should_open(data) then
+                    return
+                end
+
+                vim.schedule(function()
+                    require("lazy").load({ plugins = { "nvim-tree.lua" } })
+                    local api = require("nvim-tree.api")
+
+                    local directory = data.file ~= "" and vim.fn.isdirectory(data.file) == 1
+                    if directory then
+                        vim.fn.chdir(data.file)
+                        api.tree.change_root(data.file)
+                    end
+
+                    api.tree.open()
+                end)
+            end,
+        })
+    end,
     opts = {
         view = {
             width = 37
@@ -32,14 +81,5 @@ return { {
     },
     config = function(_, opts)
         require("nvim-tree").setup(opts)
-        -- VimEnter 时只有在恢复会话（session）后才打开树，避免闪烁
-        vim.api.nvim_create_autocmd("VimEnter", {
-            callback = function(data)
-                -- data.file == "" 说明是空白文件缓冲区，打开树
-                if data.file == "" then
-                    require("nvim-tree.api").tree.open()
-                end
-            end
-        })
-    end
+    end,
 } }

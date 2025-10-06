@@ -8,6 +8,7 @@
 
 - `<Leader>w` - 保存文件
 - `<Leader>q` - 退出
+- `<Leader>qq` - 强制退出所有窗口
 - `<Leader>x` - 保存并退出
 
 ### 窗口分屏

@@ -15,7 +15,7 @@ return { {
             ensure_installed = {
                 "gopls",
                 "rust_analyzer",
-                "tsserver",
+                -- "tsserver",
                 "bashls",
                 "dockerls",
                 "lua_ls",
@@ -25,7 +25,6 @@ return { {
             automatic_installation = true,
         })
 
-        local lspconfig = require("lspconfig")
         local lsp = require("configs.lsp")
         local capabilities = lsp.get_capabilities()
 
@@ -63,11 +62,33 @@ return { {
             marksman = {},
             sourcekit = {},
         }
+        local configured_servers = {}
+        local has_native_config = vim.fn.has("nvim-0.11") == 1 and vim.lsp and vim.lsp.config and vim.lsp.enable
+        local legacy_lspconfig
+        if not has_native_config then
+            local ok, mod = pcall(require, "lspconfig")
+            if ok then
+                legacy_lspconfig = mod
+            else
+                vim.notify("nvim-lspconfig is not available", vim.log.levels.WARN)
+                return
+            end
+        end
+
         for name, cfg in pairs(servers) do
             local extra_on_attach = cfg.on_attach
             cfg.capabilities = capabilities
             cfg.on_attach = lsp.with_on_attach(extra_on_attach)
-            lspconfig[name].setup(cfg)
+            if has_native_config then
+                vim.lsp.config(name, cfg)
+                table.insert(configured_servers, name)
+            elseif legacy_lspconfig and legacy_lspconfig[name] then
+                legacy_lspconfig[name].setup(cfg)
+            end
+        end
+
+        if has_native_config and #configured_servers > 0 then
+            vim.lsp.enable(configured_servers)
         end
     end
 } }
