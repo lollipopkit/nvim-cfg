@@ -17,6 +17,7 @@ o.mouse = "a"
 o.scrolloff = 8         -- 光标上下保持8行
 o.sidescrolloff = 8     -- 光标左右保持8列
 o.cursorline = true     -- 高亮当前行
+o.autoread = true       -- 外部修改时自动读取文件
 
 -- 性能优化
 o.lazyredraw = true     -- 宏执行时不重绘

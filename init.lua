@@ -1,6 +1,7 @@
 -- 基础设置
 require("configs.options")
 require("configs.keymaps")
+require("configs.autocmds")
 
 -- 引导 lazy.nvim（如未安装会自动克隆）
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
